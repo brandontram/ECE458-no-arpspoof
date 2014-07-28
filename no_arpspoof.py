@@ -35,8 +35,6 @@ def detect_arp_spoof(gateway_ip):
 	return arp_spoof_detected
 
 def compare_mac(nmap_mac, arp_mac):
-	print("COMPARING: " + nmap_mac + " " + arp_mac)
-
 	nmap_mac_as_array = nmap_mac.split(':')
 	arp_mac_as_array = arp_mac.split(':')
 
@@ -71,17 +69,8 @@ def get_mac_from_arp(ip):
 def purify_arp_cache(poisoned_arp_ip):
 	for i in range(0, PURIFY_RETRIES):
 		print("ARP CACHE PURIFY ATTEMPT " + str(i))
-		# os.system("arp -d " + poisoned_arp_ip)
-
-		if debug:
-			input("DEBUG MODE: Press ENTER to continue...")
-
 		os.system("arp -S " + poisoned_arp_ip + " " + get_true_mac(poisoned_arp_ip))
-		# os.system("ifconfig en0 -arp")
 
-		if debug:
-			input("DEBUG MODE: Press ENTER to continue...")
-		
 		if not detect_arp_spoof(poisoned_arp_ip):
 			print("ARP CACHE ENTRY PURIFIED. IP: " + poisoned_arp_ip + ", MAC: " + get_mac_from_arp(poisoned_arp_ip))
 			break
@@ -90,9 +79,6 @@ def purify_arp_cache(poisoned_arp_ip):
 				print("ARP CACHE COULD NOT BE PURIFIED. GET OFF THE NETWORK.")
 			else:
 				print("ARP CACHE ENTRY NOT PURIFIED. Retrying...")
-
-		if debug:
-			input("DEBUG MODE: Press ENTER to continue...")
 
 if __name__ == '__main__':
 	main()
