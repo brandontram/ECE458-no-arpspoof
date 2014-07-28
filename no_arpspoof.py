@@ -71,12 +71,13 @@ def get_mac_from_arp(ip):
 def purify_arp_cache(poisoned_arp_ip):
 	for i in range(0, PURIFY_RETRIES):
 		print("ARP CACHE PURIFY ATTEMPT " + str(i))
-		os.system("arp -d " + poisoned_arp_ip)
+		# os.system("arp -d " + poisoned_arp_ip)
 
 		if debug:
 			input("DEBUG MODE: Press ENTER to continue...")
 
-		os.system("arp -s " + poisoned_arp_ip + " " + get_true_mac(poisoned_arp_ip))
+		os.system("arp -S " + poisoned_arp_ip + " " + get_true_mac(poisoned_arp_ip))
+		# os.system("ifconfig en0 -arp")
 
 		if debug:
 			input("DEBUG MODE: Press ENTER to continue...")
