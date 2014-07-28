@@ -1,4 +1,4 @@
-import sys, argparse, os, nmap, netifaces, socket, threading, subprocess
+import sys, argparse, os, nmap, netifaces, socket, threading
 
 parser = argparse.ArgumentParser(description="Detect active man in the middle attacks")
 parser.add_argument("-d", "--debug", action="store_true", help="Debug Mode")
